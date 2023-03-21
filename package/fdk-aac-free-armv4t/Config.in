@@ -1,0 +1,25 @@
+# These are the architectures supported by FDK AAC
+config BR2_PACKAGE_FDK_AAC_FREE_ARMV4T_ARCH_SUPPORTS
+	bool
+	default y if BR2_aarch64
+	default y if BR2_arm || BR2_armeb
+	default y if BR2_i386 || BR2_x86_64
+	default y if BR2_mips || BR2_mipsel || BR2_mips64 || BR2_mips64el
+	default y if BR2_powerpc
+	default y if BR2_sh
+
+config BR2_PACKAGE_FDK_AAC_FREE_ARMV4T
+	bool "fdk_aac_free_armv4t"
+	help
+	  Provides decoding of AAC format streams
+	  (but without aspects of the AAC algorithm still subject to patents).
+	  This was adapted for working on the ARMv4T processor of the radio,
+	  representing a Third-Party Modified Version of
+	  the Fraunhofer FDK AAC Codec Library for Android.
+	  Modification date was 24th April 2022.
+	  
+	  https://www.megapico.co.uk/sharpfin/mediaserver2.html
+
+comment "fdk-aac needs a toolchain w/ C++"
+	depends on BR2_PACKAGE_FDK_AAC_FREE_ARMV4T_ARCH_SUPPORTS
+	depends on !BR2_INSTALL_LIBSTDCPP

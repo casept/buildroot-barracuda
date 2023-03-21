@@ -1,0 +1,19 @@
+diff --git a/package/wolfssl/wolfssl.mk b/package/wolfssl/wolfssl.mk
+index 9f06bb1b4b..5bf10d09a0 100644
+--- a/package/wolfssl/wolfssl.mk
++++ b/package/wolfssl/wolfssl.mk
+@@ -49,8 +49,12 @@ else
+ WOLFSSL_CONF_OPTS += --disable-armasm
+ endif
+ 
+-ifeq ($(BR2_ARM_INSTRUCTIONS_THUMB),y)
+-WOLFSSL_CONF_OPTS += --with-arm-target=thumb
++# Assembly seems to assume instructions that don't exist in Thumb1, disable for now
++ifeq ($(BR2_ARM_CPU_HAS_THUMB),y)
++# FIXME: I suspect buildroot wrongly claims thumb2 support for armv4t, as this guard triggers
++#ifeq ($(BR2_ARM_CPU_HAS_THUMB2),n)
++WOLFSSL_CONF_OPTS += --disable-armasm --disable-asm
++#endif
+ endif
+ 
+ $(eval $(autotools-package))

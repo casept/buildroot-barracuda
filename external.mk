@@ -1,0 +1,1 @@
+include $(sort $(wildcard $(BR2_EXTERNAL_BARRACUDA_PATH)/package/*/*.mk))
